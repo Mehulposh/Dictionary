@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {  useState } from 'react'
+
 import './App.css'
+import getMeaning from './api/api';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState([]);
+  const [input,setInput] = useState('');
+  const [loading,setLoading] = useState(false);
 
-  return (
-    <>
+  const handleSearch= () => {
+      async function fetchData(){
+        try{
+        setLoading(true)
+        const data = await getMeaning(input);
+        console.log(data);
+        setData(data);
+      }
+      catch(err){
+        console.error(err);
+      }
+      finally{
+        setLoading(false)
+      }
+    }
+    fetchData();
+  };
+
+
+  return(
+    <div>
+
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <input 
+          type='text'
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+
+        />
+        <button onClick={handleSearch}> 
+          Search
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      {loading ? (
+        <p> Loading ...</p>
+      ) : null}
+      {!loading && data.map(item => (
+        <div>
+          {item.definitions.map(def => (
+            <h3>
+              {def.definition}
+            </h3>
+          ))}
+        </div>
+      ))}
+    </div>
   )
+  
 }
 
 export default App
