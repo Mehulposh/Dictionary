@@ -12,9 +12,14 @@ function App() {
       async function fetchData(){
         try{
         setLoading(true)
-        const data = await getMeaning(input);
-        console.log(data);
-        setData(data);
+        
+        if(input.trim() !== ''){
+          const data = await getMeaning(input);
+          console.log(data);
+          setData(data);
+        }else{
+          alert('empty input');
+        }
       }
       catch(err){
         console.error(err);
@@ -28,31 +33,35 @@ function App() {
 
 
   return(
-    <div>
+    <div className='App'>
 
-      <div>
+      <div className='searchBar'>
         <input 
           type='text'
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          required
 
         />
-        <button onClick={handleSearch}> 
+        <button onClick={handleSearch} disabled = {!input}> 
           Search
         </button>
       </div>
       {loading ? (
         <p> Loading ...</p>
       ) : null}
+
+      <div className='list'>
       {!loading && data.map(item => (
-        <div>
-          {item.definitions.map(def => (
-            <h3>
+        <ul>
+          {item.definitions.map((def,idx) => (
+            <li key={idx+1}>
               {def.definition}
-            </h3>
+            </li>
           ))}
-        </div>
+        </ul>
       ))}
+      </div>
     </div>
   )
   

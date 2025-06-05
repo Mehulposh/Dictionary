@@ -2,9 +2,41 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  text-align: center; 
+  background-color: white;
+  height: 50vh;
+  width: 80vw;
 }
 
+input{
+  width: 30%;
+  height: 40px;
+ 
+  border-radius: 8px;
+  padding-left: 10px;
+  border: 1px solid black;
+}
+
+.searchBar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.list{
+  text-align: left;
+  margin-top: 20px;
+}
+
+ul{
+  list-style: circle;
+  margin: 0;
+}
+
+li{
+  margin-bottom: 10px;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
