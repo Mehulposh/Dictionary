@@ -34,7 +34,7 @@ function App() {
 
   return(
     <div className='App'>
-
+      <h1>Dictionary</h1>
       <div className='searchBar'>
         <input 
           type='text'
